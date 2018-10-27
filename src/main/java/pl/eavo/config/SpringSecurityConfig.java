@@ -1,14 +1,39 @@
 package pl.eavo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.eavo.service.UserDetailServiceImpl;
 
-@EnableWebSecurity
+import javax.sql.DataSource;
+
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDetailServiceImpl userDetailsService;
+
+
+    @Override
+
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+    }
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
@@ -16,16 +41,29 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**");
     }
 
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/**").permitAll() // #4
-//                .antMatchers("/admin/**").hasRole("ADMIN") // #6
-                .anyRequest().authenticated() // 7
+        http.authorizeRequests()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/register").permitAll()
+                .antMatchers("/confirm**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin()  // #8
-                .loginProcessingUrl("/login") // #9
-                .permitAll(); // #5
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/session", true)
+                .permitAll();
+
+        http.sessionManagement()
+                .maximumSessions(1)
+                .expiredUrl("/login");
+
+
     }
+
 }
