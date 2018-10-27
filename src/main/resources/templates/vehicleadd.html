@@ -1,0 +1,63 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <div id="div" class="col-md-offset-2 col-md-8">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add Your Vehicle</h3>
+            </div>
+            <div class="panel-body">
+                <form action="/vehicle/add" method="post">
+                    <div class="col-md-6">
+                        <input name="brand" id="brand" class="form-control" type="text" placeholder="Brand"/>
+                        <br>
+                        <input name="model" id="model" class="form-control" type="text" placeholder="Model"/>
+                        <br>
+                        <input name="engine" id="engine" class="form-control" type="text" placeholder="Engine"/>
+                        <br>
+                        <input name="vin" id="vin" class="form-control" type="text" placeholder="Vin number"/>
+                        <br>
+                        <input name="reg-number" id="reg-number" class="form-control" type="text"
+                               placeholder="Registration number"/>
+                        <br>
+                        <label>Registration date
+                            <input name="reg-date" id="reg-date" class="form-control" type="date"
+                                   placeholder="Registration Date"/></label>
+                        <br>
+                        <label>Production date
+                            <input name="prod-date" id="prod-date" class="form-control" type="date"
+                                   placeholder="Production Date"/></label>
+                        <br>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="fancy-radio">
+                            <input name="b7" value="b7" type="radio">
+                            <span><i></i><span class="label label-default">B7</span> ON</span>
+                        </label>
+                        <label class="fancy-radio">
+                            <input name="b10" value="b10" type="radio">
+                            <span><i></i><span class="label label-default">B10</span>ON Bio </span>
+                        </label>
+                        <label class="fancy-radio">
+                            <input name="e5" value="e5" type="radio">
+                            <span><i></i><span class="label label-success">E5</span> Pb 95</span>
+                        </label>
+                        <label class="fancy-radio">
+                            <input name="e10" value="e10" type="radio">
+                            <span><i></i><span class="label label-success">E10</span> Pb 98</span>
+                        </label>
+                        <label class="fancy-radio">
+                            <input name="lpg" value="lpg" type="radio">
+                            <span><i></i><span class="label label-info">LPG</span> LPG</span>
+                        </label>
+                    </div>
+                    <div class="col-md-offset-5 col-md-2">
+                        <button class="btn btn-success" type="submit"><i class="lnr lnr-plus-circle"></i> Add New Vehicle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,60 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/guest}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<div class="vertical-align-wrap" layout:fragment="content">
+    <div class="vertical-align-middle">
+        <div class="auth-box ">
+            <div id="div" class="left">
+                <div class="content">
+                    <div class="header">
+                        <div class="logo text-center"><img th:src="@{/resources/assets/img/logo-dark.png}"
+                                                           alt="Klorofil Logo">
+                        </div>
+                        <p class="lead">Create an account</p>
+                    </div>
+                    <div th:if="${confirmationMessage}" class="alert alert-success"
+                         role="alert" th:text=${confirmationMessage}></div>
+
+                    <div th:if="${errorMessage}"
+                         class="alert alert-danger" role="alert"
+                         th:text="${errorMessage}"></div>
+                    <form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post"
+                          class="m-t" role="form" data-toggle="validator">
+
+                        <div class="form-group input-group has-feedback">
+                            <label th:if="${#fields.hasErrors('username')}"
+                                   th:errors="*{username}" class="validation-message"></label>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                            <input type="text" th:field="*{username}"
+                                   placeholder="Username" class="form-control" required/>
+                            <span class="glyphicon form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+
+                        <div class="form-group input-group has-feedback">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                            <input type="email" th:field="*{email}"
+                                   placeholder="Email Address" class="form-control"
+                                   data-error="This email address is invalid" required/>
+                            <span class="glyphicon form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">REGISTER</button>
+                        <div class="bottom">
+                            <span class="helper-text">Already have an account? <a th:href="@{/login}">Login</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="right">
+                <div class="overlay"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WRAPPER -->
+
+</html>
