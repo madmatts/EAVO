@@ -86,7 +86,7 @@ public class Refuel {
         this.fuelStation = fuelStation;
     }
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getDate() {
         return date;
     }

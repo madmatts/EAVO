@@ -1,13 +1,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}"
       xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>EAVO - Vehicle</title>
+</head>
 <div layout:fragment="content">
     <h3 class="page-title">Vehicle</h3>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-info-circle"></i> <span th:text="${vehicle.brand}"></span> -
-                        <span th:text="${vehicle.model}"></span> photo</h3>
+                    <h3 class="panel-title"><i class="fa fa-car"></i> <span th:text="${vehicle.brand}"></span> -
+                        <span th:text="${vehicle.model}"></span></h3>
                     <div class="right">
                         <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
                         </button>
@@ -15,6 +18,45 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <ul class="car-info">
+                        <li>Brand</li>
+                        <li th:text="${vehicle.brand}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Model</li>
+                        <li th:text="${vehicle.model}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Engine</li>
+                        <li th:text="${vehicle.engine}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Vin number</li>
+                        <li th:text="${vehicle.vin}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Production date</li>
+                        <li th:text="${vehicle.productionDate}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Fuel type</li>
+                        <li th:text="${vehicle.fuelType}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Registration number</li>
+                        <li th:text="${vehicle.registrationNumber}"></li>
+                    </ul>
+                    <ul class="car-info">
+                        <li>Registration date</li>
+                        <li th:text="${vehicle.firstRegistrationDate}"></li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <a href="/vehicle/edit">
+                        <button type="button" class="btn btn-info btn-sm">
+                            Edit Vehicle
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -29,8 +71,10 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <img th:if="vehicle.photo!=null"class="img-thumbnail" th:src="@{resources/images/default-car.png}" alt="Car photo"/>
-                    <img th:if="vehicle.photo==null"class="img-thumbnail" th:src="@{resources/images/default-car.png}" alt="Car photo"/>
+                    <img th:if="vehicle.photo!=null" class="img-thumbnail" th:src="@{resources/images/default-car.png}"
+                         alt="Car photo"/>
+                    <img th:if="vehicle.photo==null" class="img-thumbnail" th:src="@{resources/images/default-car.png}"
+                         alt="Car photo"/>
                 </div>
                 <div class="panel-footer">
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#edit-photo">
@@ -38,26 +82,29 @@
                     </button>
                 </div>
             </div>
+            <div id="edit-photo" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div id="edit-photo" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </html>

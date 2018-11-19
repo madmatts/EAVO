@@ -28,5 +28,8 @@ public class MainMethod {
 
         strength = passwordCheck.measure("B@!abilon354");
         System.out.println(strength.getScore());
+
+        RefuelGenerator rg = new RefuelGenerator(15);
+        System.out.println(rg.randDoubleFromRange(4.56,5.32));
     }
 }

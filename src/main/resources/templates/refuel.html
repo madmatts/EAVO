@@ -1,0 +1,135 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>EAVO - Refuel</title>
+</head>
+<div layout:fragment="content">
+    <h3 class="page-title">Refuel</h3>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fas fa-table"></i> <span th:text="${vehicle.brand}"></span> -
+                        <span th:text="${vehicle.model}"></span> Refuels</h3>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
+                        </button>
+                        <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div th:if="${refuelList.isEmpty()}" class="well">You don't have registered refuels, register
+                        some.
+                    </div>
+                    <table th:if="${!refuelList.isEmpty()}" class="table table-responsive" id="refuels"
+                           th:object="${refuelList}">
+                        <thead>
+                        <tr>
+                            <td><i class="fas fa-calendar"></i> Date</td>
+                            <td><i class="fas fa-filter"></i> Volume</td>
+                            <td><i class="fas fa-dollar-sign"></i> Price</td>
+                            <td><i class="fas fa-dollar-sign"></i> Price per litre</td>
+                            <td><i class="fas fa-charging-station"></i> Fuel station</td>
+                            <td><i class="fas fa-road"></i> Distance</td>
+                            <td><i class="fas fa-road"></i> Mileage</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="refuel : ${refuelList}">
+                            <td th:text="${#dates.format(refuel.getDate(), 'dd-MM-yyyy')}"></td>
+                            <td th:text="${refuel.getVolume()}"></td>
+                            <td th:text="${refuel.getPrice()}"></td>
+                            <td th:text="${#numbers.formatDecimal(refuel.getPricePerLitre(), 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${refuel.getFuelStation()}"></td>
+                            <td th:text="${refuel.getMileage() - refuel.getLatestMileage()}"></td>
+                            <td th:text="${refuel.getMileage()}"></td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr class="first-refuel">
+                            <td th:text="${#dates.format(previousRefuel.getDate(), 'dd-MM-yyyy')}"></td>
+                            <td th:text="${previousRefuel.getVolume()}"></td>
+                            <td th:text="${previousRefuel.getPrice()}"></td>
+                            <td th:text="${#numbers.formatDecimal(previousRefuel.getPricePerLitre(), 0, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${previousRefuel.getFuelStation()}"></td>
+                            <td> -</td>
+                            <td th:text="${previousRefuel.getMileage()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#add-refuel">
+                        <i class="fas fa-plus-square"></i> Add Refuel
+                    </button>
+                </div>
+            </div>
+            <!--BEGIN ADD REFUEL MODAL-->
+            <div id="add-refuel" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"><i class="fas fa-plus-square"></i> Add refuel for <span
+                                    style="font-weight: bold" th:text="${vehicle.brand + ' ' + vehicle.model}"></span>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="refuel" action="/refuel/add" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <ul class="car-info">
+                                    <li>Date</li>
+                                    <li><input class="form-control" name="date" id="date" type="date"/></li>
+                                </ul>
+                                <ul class="car-info">
+                                    <li>Mileage</li>
+                                    <li><input class="form-control" name="mileage" id="mileage" type="text"/></li>
+                                </ul>
+                                <ul class="car-info">
+                                    <li>Price</li>
+                                    <li><input class="form-control" name="price" id="price" type="text"/>
+                                    </li>
+                                </ul>
+                                <ul class="car-info">
+                                    <li>Volume</li>
+                                    <li><input class="form-control" name="volume" id="volume" type="text"/></li>
+                                </ul>
+                                <ul class="car-info">
+                                    <li>Fuel station</li>
+                                    <li><input class="form-control" name="fuelStation" id="fuelStation"
+                                               type="text"/></li>
+                                </ul>
+                                <button class="btn btn-sm btn-success" type="submit"><i
+                                        class="fas fa-plus-square"></i> Add Refuel
+                                </button>
+                                <button class="btn btn-sm btn-default" type="reset"><i
+                                        class="fas fa-refresh"></i> Reset
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END ADD REFUEL MODAL-->
+        </div>
+        <div class="col-md-4">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Charts</h3>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i>
+                        </button>
+                        <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
