@@ -32,6 +32,7 @@
                             <td><i class="fas fa-charging-station"></i> Fuel station</td>
                             <td><i class="fas fa-road"></i> Distance</td>
                             <td><i class="fas fa-road"></i> Mileage</td>
+                            <td><i class="fas fa-fire"></i> Consumption</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,7 @@
                             <td th:text="${refuel.getFuelStation()}"></td>
                             <td th:text="${refuel.getMileage() - refuel.getLatestMileage()}"></td>
                             <td th:text="${refuel.getMileage()}"></td>
+                            <td th:text="${#numbers.formatDecimal(refuel.getConsumption(), 0, 'COMMA', 2, 'POINT')}"></td>
                         </tr>
                         </tbody>
                         <tbody>
@@ -54,6 +56,7 @@
                             <td th:text="${previousRefuel.getFuelStation()}"></td>
                             <td> -</td>
                             <td th:text="${previousRefuel.getMileage()}"></td>
+                            <td> -</td>
                         </tr>
                         </tbody>
                     </table>
@@ -126,7 +129,29 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    <canvas id="avgConsumption" aria-label="Average Consumption"></canvas>
+                    <canvas id="distinctFuelStations"></canvas>
+                    <script th:inline="javascript">
+                        [#th:block th:each="item : ${items}"]
+                        - [#th:block th:utext="${item}" /]
+                        [/th:block]
+                    </script>
+                    <script>
+                        var ctx = document.getElementById("avgConsumption");
+                        var myChart = new Chart(ctx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ["Orlen", "BP", "CircleK"],
+                                datasets: [{
+                                    data: [4, 1, 1],
+                                    backgroundColor: ["#d10400", "#158a31", "#bbaeaf"]
+                                }],
 
+                            },
+                            options: {
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>

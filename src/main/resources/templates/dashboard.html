@@ -3,6 +3,94 @@
 <div layout:fragment="content">
     <h3 class="page-title">Dashboard</h3>
     <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Statistics</h3>
+                    <div class="right">
+                        <button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+                        <button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-fire"></i></span>
+                            <p>
+                                <!--<span class="number" th:text="${stats.getAvgConsumption()}">1,252</span>-->
+                                <span class="number" th:text="${#numbers.formatDecimal(stats.getAverageConsumption(), 0, 'COMMA', 2, 'POINT') + ' l/100km'}"></span>
+                                <span class="title">Avg. Consumption</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-filter"></i></span>
+                            <p>
+                                <span class="number" th:text="${stats.getRefuelCount()}">1,252</span>
+                                <span class="title">Refuels</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-road"></i></span>
+                            <p>
+                                <span class="title">Distance Travelled</span>
+                                <span class="number" th:text="${stats.getDistanceTraveled() + ' km'}">1,252</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-funnel-dollar"></i></span>
+                            <p>
+                                <span class="number" th:text="${#numbers.formatDecimal(stats.getFuelSpendings(), 0, 'COMMA', 2, 'POINT') + ' PLN'}"></span>
+                                <span class="title">Fuel Spendings</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-wrench"></i></span>
+                            <p>
+                                <span class="number" th:text="${stats.getRepairCount()}"></span>
+                                <span class="title">Repairs</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                            <p>
+                                <span class="number" th:text="${#numbers.formatDecimal(stats.getRepairSpendings(), 0, 'COMMA', 2, 'POINT') + ' PLN'}"></span>
+                                <span class="title">Repair Spendings</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-clock"></i></span>
+                            <p>
+                                <span class="number" th:text="${#numbers.formatDecimal(stats.getAverageTimeBetweenRefuels(), 0, 'COMMA', 2, 'POINT') + ' days'}"></span>
+                                <span class="title">Average Time Between Refuel</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="metric">
+                            <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                            <p>
+                                <span class="number" th:text="${#numbers.formatDecimal(stats.getAverageFuelPrice(), 0, 'COMMA', 2, 'POINT') + ' PLN'}"></span>
+                                <span class="title">Average Fuel Price</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
             <div class="panel">
                 <div class="panel-heading">
